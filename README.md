@@ -20,19 +20,20 @@ http://github.com/zendframework/ZendSkeletonApplication
 "http://github.com/bscheshirwork/seqartmix"
 
 Примерно таким образом:
-{
-    ...
-    "require": {
-    ...
-        "bscheshir/seqartmix":"dev-master"
-    },
-    "repositories":[
-        {
-            "type":"git",
-            "url":"http://github.com/bscheshirwork/seqartmix"
-        }
-    ]
-}
+
+	{
+	    ...
+	    "require": {
+	    ...
+	        "bscheshir/seqartmix":"dev-master"
+	    },
+	    "repositories":[
+	        {
+	            "type":"git",
+	            "url":"http://github.com/bscheshirwork/seqartmix"
+	        }
+	    ]
+	}
 
 Запустите из каталога приложения 
 php composer.phar install для первичной установки вместеили
@@ -48,3 +49,6 @@ php composer.phar update если добавляете только модуль
         'SeqArtMix',
 	'TwbBundle',
     ),
+
+Маршруты `/sam` `/sam/admin` `/sam/admin/img/add` по желанию изменяются в настройках модуля 
+`/vendor/bscheshir/seqartmix/config/module.config.php`
