@@ -1,0 +1,105 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('ZF2 '. $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                        ->prependStylesheet($this->basePath() . '/css/style.css')
+                        ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
+                        ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') ?>
+
+        <!-- Scripts -->
+        <?php echo $this->headScript()
+            ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+            ->prependFile($this->basePath() . '/js/jquery.min.js')
+            ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+            ->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
+        ; ?>
+    <script type="text/javascript">
+/**
+ * Javascript code to fire ajax on click
+ * PLEASE NOTE: should be loaded after jQuery
+ */
+$(document).ready(function(){
+
+    $('#loadingDiv').hide();
+    $(document).ajaxStart(function() {
+        $( "#loadingDiv" ).show();
+    });
+    $(document).ajaxStop(function() {
+        $( "#loadingDiv" ).hide();
+    });
+
+    $(".arrow").on("click", function(event){
+        $.ajax({
+            url:        '<?php echo $this->url('seq-art-mix')?>',
+            type:       'POST',
+            dataType:   'json',
+            async:      true,
+            data:       {'id':this.id,'shift':this.value},
+            success: function(data, status){
+		$('#'+data.id+'_d').html(data.url);
+		$('#'+data.id).attr("src", data.imgUrl);
+            },
+            error : function(xhr, textStatus, errorThrown) {
+                if (xhr.status === 0) {
+                    alert('Not connected. Verify Network.');
+                } else if (xhr.status == 404) {
+                    alert('Requested page not found. [404]');
+                } else if (xhr.status == 500) {
+                    alert('Server Error [500].');
+                } else if (errorThrown === 'parsererror') {
+                    alert('Requested JSON parse failed.');
+                } else if (errorThrown === 'timeout') {
+                    alert('Time out error.');
+                } else if (errorThrown === 'abort') {
+                    alert('Ajax request aborted.');
+                } else {
+                    alert('Remote sever unavailable. Please try later');
+                }
+            }
+        });
+    });
+});	
+    </script>
+    
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="<?php echo $this->url('home') ?>"><img src="<?php echo $this->basePath('img/zf2-logo.png') ?>" alt="Zend Framework 2"/>&nbsp;<?php echo $this->translate('Skeleton Application') ?></a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class=""><a href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Home') ?></a></li>
+                        <li class="active"><a href="<?php echo $this->url('seq-art-mix') ?>"><?php echo $this->translate('Img') ?></a></li>
+                        <li class=""><a href="<?php echo $this->url('seq-art-mix\admin\home') ?>"><?php echo $this->translate('URLs') ?></a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+	<div id="loadingDiv" style="position: absolute;">Loading...</div>
+        <div class="container">
+            <?php echo $this->content; ?>
+            <hr>
+            <footer>
+                <p>&copy; <?php echo date('Y') ?> by BSCheshir. <?php echo $this->translate('All rights reserved.') ?></p>
+            </footer>
+        </div> <!-- /container -->
+        <?php echo $this->inlineScript() ?>
+    </body>
+</html>

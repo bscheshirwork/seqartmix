@@ -1,0 +1,25 @@
+{
+    "name": "bscheshir/seqartmix",
+    "type": "library",
+    "description": "Zend Framework 2 module for demonstration collection of images",
+    "keywords": ["Zend Framework 2","demo"],
+    "license": "BSD-3-Clause",
+    "homepage": "http://bscheshir.16mb.com/",
+    "repositories": [
+        {
+            "type": "git",
+            "url": "http://github.com/bscheshirwork/seqartmix"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "SeqArtMix": "src"
+        },
+	"classmap":["Module.php"]
+    },
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "2.3.*@stable",
+	"neilime/zf2-twb-bundle": "2.*@stable"
+    }
+}
