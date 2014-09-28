@@ -21,7 +21,6 @@ class ImgAdd extends Form
      */
     public function __construct() {
 	parent::__construct('img-add-form');
-	$this->setAttribute('action', '/sam/admin/img/add');
 	$this->setAttribute('method', 'post');
 	
 	$this->add(array(
